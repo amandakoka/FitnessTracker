@@ -4,7 +4,9 @@ package fitnesstrackerapp;
 public class Workout {
   String name;
   String type;
+  //integer to display the duration in minutes
   int duration;
+  //integer to display the amount of calories burned (kcal) 
   int caloriesBurned;
   
 //adding the attributes
@@ -36,5 +38,10 @@ public void setCaloriesBurneed(int caloriesBurned) {
 }
 
 //method used to display
-public void display()
+public void displayWorkout(){
+  System.out.println("Workout Type: " + type);
+  System.out.println("Duration: " + duration + "minutes");
+  System.out.println("Calories Burned: " + caloriesBurned + " kcal");
+}
+
 }
