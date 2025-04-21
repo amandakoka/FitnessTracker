@@ -25,6 +25,8 @@ public class User {
     public String getName() {
         return name;
     }
+
+    // Need to add input validation here
     public void setName(String name) {
         this.name = name;
     }
@@ -33,6 +35,8 @@ public class User {
     public int getAge() {
         return age;
     }
+
+    // Need to add input validation here
     public void setAge(int age) {
         this.age = age;
     }
@@ -41,6 +45,8 @@ public class User {
     public double getWeight() {
         return weight;
     }
+
+    // Need to add input validation here
     public void setWeight(double weight) {
         this.weight = weight;
     }
@@ -49,7 +55,14 @@ public class User {
     public List<String> getGoals() {
         return new ArrayList<>(goals);
     }
+
+    // Need to add input validation here
     public void setGoals( List<String> goals) {
         this.goals = new ArrayList<>(goals);
+    }
+
+    // Need to add input validation here
+    public void addGoal(String goal) {
+        this.goals.add(goal);
     }
 }
