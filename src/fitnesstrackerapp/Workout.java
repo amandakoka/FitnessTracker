@@ -2,12 +2,12 @@ package fitnesstrackerapp;
 
 // class for workouts
 public class Workout {
-  String name;
-  String type;
+  private String name;
+  private  String type;
   //integer to display the duration in minutes
-  int duration;
+  private int duration;
   //integer to display the amount of calories burned (kcal) 
-  int caloriesBurned;
+  private int caloriesBurned;
   
 //adding the attributes
   public Workout(String name,String type,int duration,int caloriesBurned){
@@ -16,15 +16,19 @@ public class Workout {
     this.duration = duration;
     this.caloriesBurned = caloriesBurned;
   }
+  
   public String type getType() {
     return type;
   }
+  
   public int getDuration() {
     return duration;
   }
+  
   public int getCaloriesBurned() {
     return caloriesBurned;
   }
+  
   public void setType(String type) [
   this.type = type;
 }
