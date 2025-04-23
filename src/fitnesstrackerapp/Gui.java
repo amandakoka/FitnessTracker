@@ -100,7 +100,7 @@ public class Gui {
 
             // Check valid input
             if (name.isEmpty() || duration <= 0 || calories <= 0) {
-                JOptionPane.showMessageDialog(frame, "Please enter valid workout details.", JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(frame, "Please enter valid workout details.","Error", JOptionPane.ERROR_MESSAGE);
                 return;
             }
 
