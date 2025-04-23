@@ -17,6 +17,8 @@ public class Workout {
     this.caloriesBurned = caloriesBurned;
   }
 
+  public String getName() { return name; }
+
   public String getType() {
     return type;
   }
@@ -43,6 +45,7 @@ public class Workout {
 
   //method used to display
   public void displayWorkout() {
+    System.out.println("Name: " + name);
     System.out.println("Workout Type: " + type);
     System.out.println("Duration: " + duration + "minutes");
     System.out.println("Calories Burned: " + caloriesBurned + " kcal");
