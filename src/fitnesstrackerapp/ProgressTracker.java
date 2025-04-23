@@ -20,7 +20,7 @@ public class ProgressTracker {
             return "You haven't started working out yet!";
         }
 
-        int progress = (burned / calorieGoal) * 100;
+        int progress = (int) (((double) burned / calorieGoal) * 100);
 
         if (progress >= 100) {
             return "Congratulations! You have reached your goal!";
