@@ -12,9 +12,11 @@ public class Gui {
     private JTable workoutTable;
     private DefaultTableModel tableModel;
     private JTextField nameField, durationField, caloriesField, goalField;
+    private JTextField userNameField, ageField, weightField;
     private JTextArea progressArea;
     private JComboBox<String> typeComboBox;
     private JProgressBar progressBar;
+    private User User;
 
     public Gui() {
         tracker = new ProgressTracker();
@@ -25,22 +27,41 @@ public class Gui {
         // Create the main window
         frame = new JFrame("Smart Fitness Tracker Application");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.setSize(650, 840);
+        frame.setSize(700, 1000);
 
         // Main Panel
         JPanel mainPanel = new JPanel(new BorderLayout(10, 10));
 
         // Panel with workout information
-        JPanel inputPanel = new JPanel(new GridLayout(5, 2, 10, 10));
-        nameField = new JTextField();
-        typeComboBox = new JComboBox<>(new String[]{"Cardio", "Yoga", "Strength", "Flexibility"});
-        durationField = new JTextField();
-        caloriesField = new JTextField();
+        JPanel userPanel = new JPanel(new GridLayout(7, 2, 10, 10));
+        userNameField = new JTextField();
+        ageField = new JTextField();
+        weightField = new JTextField();
         goalField = new JTextField();
         progressArea = new JTextArea(5, 30);
         progressArea.setEditable(false);
         progressBar = new JProgressBar(0, 100);
         progressBar.setStringPainted(true);
+
+        // Adds personal details and goal fields
+        userPanel.add(new JLabel("User Name:"));
+        userPanel.add(userNameField);
+        userPanel.add(new JLabel("Age:"));
+        userPanel.add(ageField);
+        userPanel.add(new JLabel("Weight(kg):"));
+        userPanel.add(weightField);
+        userPanel.add(new JLabel("Set Calorie Goal:"));
+        userPanel.add(goalField);
+
+        // Adds save button for user info
+        JButton saveUserButton = new JButton("Save User Info");
+        userPanel.add(saveUserButton);
+
+        JPanel inputPanel = new JPanel(new GridLayout(5, 2, 10, 10));
+        nameField = new JTextField();
+        typeComboBox = new JComboBox<>(new String[]{"Cardio", "Yoga", "Strength", "Flexibility"});
+        durationField = new JTextField();
+        caloriesField = new JTextField();
 
         // Add labels to the input section
         inputPanel.add(new JLabel("Workout Name:"));
@@ -58,17 +79,20 @@ public class Gui {
         inputPanel.add(reportButton);
 
         // Layout to input calorie goal
-        JPanel goalPanel = new JPanel(new BorderLayout(5, 5));
-        goalPanel.add(new JLabel("Set Calorie Goal:"), BorderLayout.WEST);
-        goalPanel.add(goalField, BorderLayout.CENTER);
+        progressBar = new JProgressBar(0, 100);
+        progressBar.setStringPainted(true);
+        progressArea = new JTextArea(5, 30);
+        progressArea.setEditable(false);
+        JScrollPane progressScroll = new JScrollPane(progressArea);
 
         // Button to show progress
         JButton showProgressButton = new JButton("Show Progress");
-        goalPanel.add(showProgressButton, BorderLayout.EAST);
 
         // Add progress bar and area to the goal panel
-        goalPanel.add(progressBar, BorderLayout.CENTER);
-        goalPanel.add(new JScrollPane(progressArea), BorderLayout.SOUTH);
+        JPanel bottomPanel = new JPanel(new BorderLayout());
+        bottomPanel.add(progressBar, BorderLayout.NORTH);
+        bottomPanel.add(progressScroll, BorderLayout.CENTER);
+        bottomPanel.add(showProgressButton, BorderLayout.SOUTH);
 
         // Workout table
         String[] columns = {"Name", "Type", "Duration", "Calories"};
@@ -77,9 +101,14 @@ public class Gui {
         JScrollPane tableScroll = new JScrollPane(workoutTable);
 
         // Add action to the buttons
+        saveUserButton.addActionListener(e -> saveUserInfo());
         addWorkoutButton.addActionListener(e -> addWorkout());
         reportButton.addActionListener(e -> tracker.generateReport());
         showProgressButton.addActionListener(e -> showProgress());
+
+        JPanel topPanel = new JPanel(new BorderLayout());
+        topPanel.add(userPanel, BorderLayout.NORTH);
+        topPanel.add(inputPanel, BorderLayout.SOUTH);
 
         mainPanel.add(inputPanel, BorderLayout.NORTH);
         mainPanel.add(tableScroll, BorderLayout.CENTER);
@@ -88,6 +117,26 @@ public class Gui {
         // Show the window
         frame.setContentPane(mainPanel);
         frame.setVisible(true);
+    }
+
+    // method for saving user info
+    private void saveUserInfo() {
+        try {
+            String name = userNameField.getText().trim();
+            int age = Integer.parseInt(ageField.getText().trim());
+            double weight = Double.parseDouble(weightField.getText().trim());
+            int goal = Integer.parseInt(goalField.getText().trim());
+
+            if (name.isEmpty() || age <= 0 || weight <= 0 || goal <= 0) {
+                JOptionPane.showMessageDialog(frame, "Please fill out all user fields with valid values.", "Input Error", JOptionPane.ERROR_MESSAGE);
+                return;
+            }
+
+            User = new User(name, age, weight, new ArrayList<>(Arrays.asList("Burn " + goal + " calories")));
+            JOptionPane.showMessageDialog(frame, "User information saved successfully.");
+        } catch (NumberFormatException ex) {
+            JOptionPane.showMessageDialog(frame, "Please enter values for age, weight, and goal.", "Format Error", JOptionPane.WARNING_MESSAGE);
+        }
     }
 
     // When user clicks Add Workout
@@ -134,7 +183,7 @@ public class Gui {
 
             // Calculate progress
             int total = tracker.totalCalories();
-            int percent = (int) ((double) total / goal * 100);
+            int percent = (int) (((double) total / goal) * 100);
             percent = Math.min(percent, 100);
             progressBar.setValue(percent);
 
