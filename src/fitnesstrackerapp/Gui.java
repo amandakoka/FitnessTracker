@@ -179,6 +179,7 @@ public class Gui {
             // If duration or calories are not numbers
             JOptionPane.showMessageDialog(frame, "Please use only numbers for duration and calories.", "Error, try again", JOptionPane.WARNING_MESSAGE);
         }
+        showProgress(); //calls show progress after adding a workout so it updates straight away.
     }
 
     // Show progress towards goal
