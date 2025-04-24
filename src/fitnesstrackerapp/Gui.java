@@ -5,6 +5,9 @@ import javax.swing.table.DefaultTableModel;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+//imports needed
+import java.util.ArrayList;
+import java.util.Arrays;
 
 public class Gui {
   private ProgressTracker tracker;
@@ -60,8 +63,9 @@ public class Gui {
         JButton saveUserButton = new JButton("Save User Info");
         userPanel.add(saveUserButton);
 
-        JPanel inputPanel = new JPanel(new GridLayout(5, 2, 10, 10));
-        workoutNameField = new JTextField();
+        /* Remove JPanel inputPanel = new JPanel(new GridLayout(5, 2, 10, 10));
+        * as its already declared */
+        nameField = new JTextField(); //workout name to name
         typeComboBox = new JComboBox<>(new String[]{"Cardio", "Yoga", "Strength", "Flexibility"});
         durationField = new JTextField();
         caloriesField = new JTextField();
@@ -113,13 +117,16 @@ public class Gui {
         topPanel.add(userPanel, BorderLayout.NORTH);
         topPanel.add(inputPanel, BorderLayout.SOUTH);
 
-        mainPanel.add(inputPanel, BorderLayout.NORTH);
+        // changed input to top panel as the user panel was not showing
+        mainPanel.add(topPanel, BorderLayout.NORTH);
         mainPanel.add(tableScroll, BorderLayout.CENTER);
-        mainPanel.add(goalPanel, BorderLayout.SOUTH);
+        mainPanel.add(bottomPanel, BorderLayout.SOUTH); // goal to bottom
 
         // Show the window
         frame.setContentPane(mainPanel);
         frame.setVisible(true);
+        frame.setSize(800, 1200);
+
     }
 
     private void saveUserInfo() {
@@ -133,7 +140,7 @@ public class Gui {
                 JOptionPane.showMessageDialog(frame, "Please fill out all user fields with valid values.", "Input Error", JOptionPane.ERROR_MESSAGE);
                 return;
             }
-
+            // error here with the array list/arrays, needs to be imported at the top.
             User = new User(name, age, weight, new ArrayList<>(Arrays.asList("Burn " + goal + " calories")));
             JOptionPane.showMessageDialog(frame, "User information saved successfully.");
         } catch (NumberFormatException ex) {
