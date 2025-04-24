@@ -36,7 +36,7 @@ public class Gui {
         JPanel mainPanel = new JPanel(new BorderLayout(10, 10));
 
         // Panel with workout information
-        JPanel inputPanel = new JPanel(new GridLayout(7, 2, 10, 10));
+        JPanel inputPanel = new JPanel(new GridLayout(6, 2, 7, 7));
         userNameField = new JTextField();
         ageField = new JTextField();
         weightField = new JTextField();
@@ -47,7 +47,7 @@ public class Gui {
         progressBar.setStringPainted(true);
 
         // Added missing user panel
-        JPanel userPanel = new JPanel(new GridLayout(7, 2, 10, 10));  // Added this line
+        JPanel userPanel = new JPanel(new GridLayout(6, 2, 7, 7));  // Added this line
 
         // Adds fields for personal information
         userPanel.add(new JLabel("User Name:"));
