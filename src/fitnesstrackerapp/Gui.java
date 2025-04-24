@@ -122,11 +122,11 @@ public class Gui {
         mainPanel.add(tableScroll, BorderLayout.CENTER);
         mainPanel.add(bottomPanel, BorderLayout.SOUTH); // goal to bottom
 
-        // Show the window
+        // Show the window, add border.
+        mainPanel.setBorder(BorderFactory.createEmptyBorder(20, 20, 20, 20));
         frame.setContentPane(mainPanel);
         frame.setVisible(true);
         frame.setSize(800, 1200);
-
     }
 
     private void saveUserInfo() {
