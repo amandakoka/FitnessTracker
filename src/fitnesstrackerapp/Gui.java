@@ -43,6 +43,9 @@ public class Gui {
         progressBar = new JProgressBar(0, 100);
         progressBar.setStringPainted(true);
 
+        // Added missing user panel
+        JPanel userPanel = new JPanel(new GridLayout(7, 2, 10, 10));  // Added this line
+
         // Adds fields for personal information
         userPanel.add(new JLabel("User Name:"));
         userPanel.add(userNameField);
